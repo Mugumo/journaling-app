@@ -12,14 +12,12 @@ const config: Config = {
 			colors: {
 				background: "var(--background)",
 				foreground: "var(--foreground)",
-				bg: {
-					beige: {
-						dark: "#F5ECE0",
-						light: "#F2DEBA", // Fixed missing `#`
-					},
+				beige: {
+					dark: "#F5ECE0",
+					light: "#F2DEBA", // Fixed missing `#`
 				},
 				purple: {
-					accent: "#6C00FF",
+					accent: "#150050",
 				},
 				primary: {
 					blue: "#3C79F5",
@@ -29,7 +27,14 @@ const config: Config = {
 					blue: "#336D82", // Fixed missing quotes
 					green: "#BDE8CA",
 				},
+				dark: {
+					blue: "#16213E",
+					green: "#143E24"
+				},
+				navy: "#1A2F4B",
 				accent: "#2DCDDF",
+				brown: "#3C2A21",
+				charcoal: '#344055'
 			},
 		},
 	},
