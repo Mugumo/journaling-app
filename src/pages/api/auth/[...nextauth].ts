@@ -1,12 +1,12 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import { Prisma, PrismaClient } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
+import NextAuth, { NextAuthOptions } from "next-auth"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { PrismaClient } from "@prisma/client"
+import GoogleProvider from 'next-auth/providers/google'
 
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
-	adapter: PrismaAdapter(prisma), // 👈 Add the Prisma Adapter
+	adapter: PrismaAdapter(prisma),
 
 	providers: [
 		GoogleProvider({
@@ -30,16 +30,13 @@ export const authOptions: NextAuthOptions = {
 	},
 
 	session: {
-		strategy: "database", // Use database-backed sessions
+		strategy: "database",
 	},
 
 	pages: {
-		signIn: "/signin", // 👈 Redirect users to custom Sign-in page
+		signIn: "/auth/signin",
 	},
 };
 
 export default NextAuth(authOptions);
-function PrismaAdapter(prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>): import("next-auth/adapters").Adapter | undefined {
-	throw new Error("Function not implemented.");
-}
 
