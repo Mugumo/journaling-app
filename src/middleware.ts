@@ -1,4 +1,4 @@
-export { default } from 'next-auth/middleware';
+export { default } from "next-auth/middleware";
 
 export const config = {
   matcher: [
@@ -9,6 +9,9 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!auth/signin|_next/static|images|_next/image|favicon*).*)',
+    "/((?!signin|auth/signup|auth/reset_password|auth/update-password|auth/verify|auth/update_password|auth/newuser|auth/reset_wait|auth/password_expired|auth/agent_signup|^auth/agent_signup/update_profile|auth/agent_signup|_next/static|images|_next/image|favicon.ico).*)",
+
   ],
 };
+
+console.log("Middleware running")

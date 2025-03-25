@@ -1,40 +1,77 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
 import GoogleProvider from 'next-auth/providers/google'
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+interface GoogleProfile {
+	iss: string;
+	azp: string;
+	aud: string;
+	sub: string;
+	email: string;
+	email_verified: boolean,
+	at_hash: string,
+	name: string,
+	picture: string,
+	given_name: string,
+	iat: number,
+	exp: number
+}
 export const authOptions: NextAuthOptions = {
-	adapter: PrismaAdapter(prisma),
-
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID!,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET!
 		}),
 	],
 
 	callbacks: {
-		async session({ session, user }) {
-			// Attach user id and other profile details to session
+		async session({ session, token }) {
 			if (session.user) {
-				session.user.id = user.id;
-				session.user.firstName = user.firstName;
-				session.user.lastName = user.lastName;
-				session.user.nickname = user.nickname;
-				session.user.avatarUrl = user.image;
+				session.user.id = token.id;
+				session.user.firstName = token.firstName;
+				session.user.lastName = token.lastName;
+				session.user.nickname = token.nickname;
+				session.user.avatarUrl = token.avatarUrl;
 			}
 			return session;
 		},
-	},
+		async jwt({ token, account, profile }) {
+			let gProfile = profile as GoogleProfile
+			if (account && gProfile) {
+			  let dbUser = await prisma.user.findUnique({
+				where: { email: gProfile.email },
+			  });
+	  
+			  if (!dbUser) {
+				dbUser = await prisma.user.create({
+				  data: {
+					email: gProfile.email!,
+					name: gProfile.name,
+					avatarUrl: gProfile.picture,
+					provider: "google",
+					providerAccountId: gProfile.sub,
+				  },
+				});
+			  }
+			  token.id = dbUser.id;
+			  token.firstName = dbUser.firstName;
+			  token.lastName = dbUser.lastName;
+			  token.nickname = dbUser.nickname;
+			  token.avatarUrl = dbUser.avatarUrl;
+			}
+			return token;
+		  },
+		},
 
 	session: {
-		strategy: "database",
+		strategy: "jwt",
 	},
 
 	pages: {
-		signIn: "/auth/signin",
+		signIn: "/signin",
+		error: "/signin"
 	},
 };
 
