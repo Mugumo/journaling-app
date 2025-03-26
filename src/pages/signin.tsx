@@ -23,7 +23,7 @@ const SignIn = () => {
 				<div className="h-full flex flex-col justify-center">
 					<Card
 						size="lg"
-						className="flex flex-col items-start justify-between py-12 gap-20 min-h-[65vh] relative text-navy dark:text-white">
+						className="flex flex-col items-start justify-between py-12 gap-20 min-h-[65vh] relative text-dark-navy dark:text-white">
 						<div className="w-full flex flex-col gap-10 items-start">
 							{/* <p className="w-full text-8xl font-medium mb-3">Welcome to</p> */}
 							<Link
@@ -58,7 +58,7 @@ const SignIn = () => {
 									<BiMoon
 										onClick={() => toggleTheme()}
 										size={20}
-										className="text-navy"
+										className="text-dark-navy"
 									/>
 								)}
 							</div>
