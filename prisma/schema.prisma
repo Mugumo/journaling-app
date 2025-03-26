@@ -107,7 +107,7 @@ model Category {
 model Label {
   id          String         @id @default(uuid())
   name        String         @unique
-  description String?
+  color       String
   creator     User           @relation(fields: [creatorID], references: [id], onDelete: Cascade)
   creatorID   String
   journals    JournalEntry[]
