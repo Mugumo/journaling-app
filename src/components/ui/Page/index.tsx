@@ -18,7 +18,7 @@ export const Page: FC<Props> = ({ children, pageTitle }) => {
 			<Header />
 			<div className="relative grow overflow-y-auto text-black dark:text-white">
 				{/* <SideBar /> */}
-				<div className="h-full overflow-y-auto px-1 bg-beige-dark dark:bg-slate-950">
+				<div className="h-full overflow-y-auto 3xl:px-[10vw]">
 					{children}
 				</div>
 			</div>

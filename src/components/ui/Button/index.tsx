@@ -1,8 +1,8 @@
 import { ButtonProps, Button as HUButton } from "@headlessui/react";
-import cn from "classnames";
+import { cn } from "@/lib/classnames";
 interface IProps extends ButtonProps {
 	color?: "primary" | "secondary";
-	variant?: "full" | "outline";
+	variant?: "full" | "outline" | "naked";
 }
 export const Button = ({
 	color = "primary",
@@ -15,9 +15,11 @@ export const Button = ({
 		<HUButton
 			{...props}
 			className={cn(
-				"flex items-center gap-2 rounded-md bg-gray-800 py-2 px-4 text-white shadow-md hover:bg-gray-700",
-				{ "bg-dark-green": color === "secondary" },
+				"flex items-center justify-center gap-2 rounded-md py-2 px-4",
+				"bg-purple-accent text-white shadow-md hover:bg-primary-blue disabled:bg-gray-500 disabled:opacity-65",
+				{ "bg-primary-green": color === "secondary" },
 				{ "bg-none": variant === "outline" },
+				{ "bg-none border-none": variant === "naked" },
 				className
 			)}>
 			{children}

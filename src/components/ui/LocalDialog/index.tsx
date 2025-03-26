@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Dialog as HeDialog } from "@headlessui/react";
 import { MdOutlineClose } from "react-icons/md";
-import cn from "classnames";
+import { cn } from "@/lib/classnames";
 
 interface Props {
 	size?: "sm" | "md" | "lg" | "xl";

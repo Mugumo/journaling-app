@@ -1,18 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { IconType } from "react-icons/lib";
 import { TbChartHistogram } from "react-icons/tb";
 import { IoPerson } from "react-icons/io5";
 import { IoIosArrowDown, IoIosLogOut } from "react-icons/io";
-import cn from "classnames";
 import { useRouter } from "next/router";
-import { Button, Menu } from "@/components/ui";
+import { Button, Menu, Modal } from "@/components/ui";
 import { useTheme } from "@/hooks/theme";
 import { BiSun, BiMoon } from "react-icons/bi";
 import { SiThymeleaf } from "react-icons/si";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
+import { CreateJournal } from "@/components/forms";
+import { cn } from "@/lib/classnames";
 
 interface NavItem {
 	name: string;
@@ -44,9 +45,10 @@ export const Header = () => {
 	];
 	const { pathname } = router;
 	const { theme, toggleTheme } = useTheme();
+	const [open, setOpen] = useState(false);
 
 	return session ? (
-		<div className="flex justify-between py-2 px-5 min-h-[55px] ">
+		<div className="flex justify-between py-2 px-5 min-h-[7vh] ">
 			<Link
 				href="/"
 				className="flex gap-2 items-end rounded-lg pr-2">
@@ -54,9 +56,11 @@ export const Header = () => {
 					size={40}
 					className="text-purple-accent bg-white rounded-lg"
 				/>
-				<div className="flex flex-col justify-between text-navy dark:text-white font-bold">
+				<div className="flex flex-col justify-between text-dark-navy dark:text-white font-bold">
 					<h1 className="text-3xl leading-none">Leaf</h1>
-					<p className="text-xs opacity-70 leading-none text-right">journaling</p>
+					<p className="text-xs opacity-70 leading-none text-right">
+						journaling
+					</p>
 				</div>
 			</Link>
 			<ul className="relative top-1 hidden items-center gap-6 font-semibold text-black dark:text-white/90 lg:flex">
@@ -119,6 +123,11 @@ export const Header = () => {
 						</Fragment>
 					)
 				)}
+				<Button
+					onClick={() => setOpen(true)}
+					disabled={open}>
+					Record a Journal
+				</Button>
 				<Menu>
 					<Menu.Button>
 						{session ? (
@@ -153,7 +162,7 @@ export const Header = () => {
 							) : (
 								<BiMoon
 									size={20}
-									className="text-navy"
+									className="text-dark-navy"
 								/>
 							)}
 							{theme === "dark"
@@ -163,6 +172,13 @@ export const Header = () => {
 					</Menu.Items>
 				</Menu>
 			</ul>
+			<Modal {...{ open, onClose: setOpen }}>
+				<Modal.Panel
+					size="2xl"
+					title="New Journal">
+					<CreateJournal onComplete={() => setOpen(false)} />
+				</Modal.Panel>
+			</Modal>
 		</div>
 	) : null;
 };

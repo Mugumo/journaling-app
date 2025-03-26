@@ -1,5 +1,5 @@
 import { FC, ReactNode, JSXElementConstructor, HTMLAttributes } from "react";
-import cn from "classnames";
+import { cn } from "@/lib/classnames";
 interface Props {
 	children?: ReactNode;
 	className?: string;

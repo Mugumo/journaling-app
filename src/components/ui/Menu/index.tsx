@@ -11,7 +11,7 @@ import {
 	MenuSection,
 } from "@headlessui/react";
 import { FC, HTMLAttributes, ReactNode } from "react";
-import cn from "classnames";
+import { cn } from "@/lib/classnames";
 
 interface IMenu extends FC<MenuProps> {
 	Button: FC<MenuButtonProps>;

@@ -27,15 +27,24 @@ const config: Config = {
 					blue: "#336D82", // Fixed missing quotes
 					green: "#BDE8CA",
 				},
+				light: {
+					purple: "#4F1C51",
+					navy: '#0C0950'
+				},
 				dark: {
 					blue: "#16213E",
-					green: "#143E24"
+					green: "#143E24",
+					navy: "#1A2F4B",
 				},
-				navy: "#1A2F4B",
-				accent: "#2DCDDF",
+				accent: {
+					blue: "#2DCDDF",
+				},
 				brown: "#3C2A21",
-				charcoal: '#344055'
+				charcoal: "#344055",
 			},
+			screens: {
+				'3xl': '1900px',
+			  },
 		},
 	},
 	plugins: [],
