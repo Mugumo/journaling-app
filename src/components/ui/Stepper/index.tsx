@@ -4,6 +4,7 @@ import { cn } from "@/lib/classnames";
 import { Button } from "..";
 interface IProps {
 	children: JSX.Element[];
+    disabled: boolean;
 	currentIndex: number;
 	setCurrentIndex: Dispatch<SetStateAction<number>>;
 	// height?: "sm" | "md" | "lg" | "xl";
@@ -11,6 +12,7 @@ interface IProps {
 
 export const Stepper: React.FC<IProps> = ({
 	children,
+    disabled,
 	currentIndex,
 	setCurrentIndex,
 }) => {
@@ -45,13 +47,13 @@ export const Stepper: React.FC<IProps> = ({
 			<div className="flex justify-between items-end px-5">
 				<Button
 					onClick={() => setCurrentIndex((prev) => prev - 1)}
-					disabled={currentIndex < 1}>
+					disabled={currentIndex < 1 || disabled}>
 					Previous
 				</Button>
 				<Button
 					color="secondary"
 					onClick={() => setCurrentIndex((prev) => prev + 1)}
-					disabled={currentIndex > children.length - 2}>
+					disabled={currentIndex > children.length - 2 || disabled}>
 					Next
 				</Button>
 			</div>
